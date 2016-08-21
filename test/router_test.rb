@@ -11,7 +11,7 @@ class TestRouter < Minitest::Test
     d2 = Driver.new(2, [40.11, 40.1])
     d3 = Driver.new(3,[40.122, 40.1])
     d4 = Driver.new(4, [40.13, 40.1])
-    drivers = [d1, d2, d3, d4]
+    @drivers = [d1, d2, d3, d4]
     
     o1 = Order.new(1, [39.99, 40.1], [40.11, 40.1], Size::SMALL)
     o2 = Order.new(2, [40.12, 40.1], [40.13, 40.1], Size::SMALL)
@@ -25,8 +25,8 @@ class TestRouter < Minitest::Test
     o10 = Order.new(10, [39.98, 40.1], [40.4, 40.1], Size::BIG)
     o11 = Order.new(11, [40.10, 40.1], [40.3, 40.1], Size::SMALL)
 
-    orders = [o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11]
-    @result = assignRoutes(drivers, orders)
+    @orders = [o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11]
+    @result = assignRoutes(@drivers, @orders)
   end
   
   def test_all_delivered_packages_are_in_reach_of_drivers
@@ -53,9 +53,35 @@ class TestRouter < Minitest::Test
     ids = deliveries.map { |delivery| delivery.driver.id }.uniq
     
     for id in ids
-      driverJobs = deliveries.select{ |delivery| delivery.driver.id == id && delivery.order.size == Size::BIG }
+      driverJobs = deliveries.select{ 
+        |delivery| delivery.driver.id == id && delivery.order.size == Size::BIG 
+      }
       assert(driverJobs.length == 1)
     end
+  end
+  
+  def test_orders_either_delivered_or_unused
+    used = @result.deliveries.map {|delivery| delivery.driver }.uniq
+    unused = @result.unused.drivers.uniq
+    drivers = used + unused
+    checked = drivers & @drivers
+    assert(checked.length == @drivers.length)
+  end
+
+  def test_all_drivers_either_delivering_or_unused
+    used = @result.deliveries.map {|delivery| delivery.order }.uniq
+    unused = @result.unused.orders.uniq
+    orders = used + unused
+    checked = orders & @orders
+    assert(checked.length == @orders.length)
+  end
+
+  def test_no_two_drivers_carry_the_same_load
+    
+  end
+ 
+  def test_no_load_is_carried_by_multiple_drivers
+  
   end
 
   def test_unused_drivers_do_not_deliver_orders
