@@ -1,7 +1,5 @@
 require 'json'
 
-
-
 module Router
 
   MAX_PERMITTED_DISTANCE = 5.0
@@ -58,7 +56,6 @@ module Router
     end
   end
   
-  
   class Result
     attr_reader :deliveries, :unused
   
@@ -78,6 +75,32 @@ module Router
     end
   end
   
+  def assignRoutes(drivers, orders)
+    riverTree.nearestk(order.lat, order.lon, DRIVER_DEPTH)
+    orderIds = orders.map{|order| order.id}.to_s
+    driverIds = drivers.map{|driver| driver.id}.to_s
+    
+    orderPts = orders.map{|order| [order.from[0], order.from[1], order.id]}
+    driverPts = drivers.map{|driver| [driver.position[0], order.position[1], driver.id]}
+    
+    orderTree = Kdtree.new(orderPts)
+    driverTree = Kdtree.new(driverPts)
+    
+    deliveries = order.to_a.inject([]) {|result, order|  
+      #use the trees to look for nearest neighbouring drivers for each order.
+      #For small packages, we use the trees to look up nearest neighbouring orders to 
+      #fill each driver's car
+      result.push(processOrder(order.id, orders, orderTree, drivers, driverTree, orderIds, driverIds))
+    }
+    
+    unfilledOrders = orderIds.map {|id| orders[id]}
+    unemployedDrivers = driverIds.map {|id| drivers[id]}
+
+    Result.new(deliveries, UnusedOpportunities.new(unemployedDrivers, unfilledOrders))
+  end
+
+private
+
   #FIXME - messy
   def processOrder(orderId, orders, orderTree, drivers, driverTree, orderIds, driverIds)
     order = orders[orderId]
@@ -86,7 +109,7 @@ module Router
     
     for id in nearToFarIds do
       driver = drivers[id]
-      if latlon_distance(drivers,order) > MAX_PERMITTED_DISTANCE
+      if Geography.distance(drivers,order) > MAX_PERMITTED_DISTANCE
         break
       else
         orderIds.delete(orderId) 
@@ -102,8 +125,9 @@ module Router
     end
     return result
   end
-
-  private def processDriver(driverId, orders, orderTree, drivers, driverTree, orderIds, driverIds)
+  
+  #FIXME - messy
+  def processDriver(driverId, orders, orderTree, drivers, driverTree, orderIds, driverIds)
     driver = drivers[driverId]
     position = driver.position
     nearToFarIds = orderTree.nearestk(position[0], position[1], ORDER_DEPTH)
@@ -111,7 +135,7 @@ module Router
     driverLoad = 1
     for id in nearToFarIds do
       order = orders[id]
-      if latlon_distance(drivers,order) > MAX_PERMITTED_DISTANCE
+      if Geography.distance(drivers,order) > MAX_PERMITTED_DISTANCE
         break
       else 
         if driverLoad == 3
@@ -123,31 +147,10 @@ module Router
           driverLoad += 1
           orderIds.delete(id) 
           result.push([driver, order])
-
         end
       end
     end
     return result
   end
 
-  private def assignRoutes(drivers, orders)
-    riverTree.nearestk(order.lat, order.lon, DRIVER_DEPTH)
-    orderIds = orders.map{|order| order.id}.to_s
-    driverIds = drivers.map{|driver| driver.id}.to_s
-    
-    orderTree = create_partition_tree(orderData)
-    driverTree = create_partition_tree(drivers)
-    
-    deliveries = order.to_a.inject([]) {|result, order|  
-      #use the trees to look for nearest neighbouring drivers for each order.
-      #For small packages, we use the trees to look up nearest neighbouring orders to 
-      #fill each driver's car
-      result.push(processOrder(order.id, orders, orderTree, drivers, driverTree, orderIds, driverIds))
-    }
-    
-    unfilledOrders = orderIds.map {|id| orders[id]}
-    unemployedDrivers = driverIds.map {|id| drivers[id]}
-
-    Result.new(deliveries, UnusedOpportunities.new(unemployedDrivers, unfilledOrders))
-  end
 end

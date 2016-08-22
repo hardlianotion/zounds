@@ -19,6 +19,7 @@ get '/routes' do
   if drivers.nil? || orders.nil? then
     halt 404
   else
+    #FIXME bad path handling here 
     result = assignRoutes(drivers, orders)
     status  result.status
 

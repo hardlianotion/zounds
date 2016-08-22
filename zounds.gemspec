@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
     s.description = "Vehicle dispatch service"
     s.authors     = ["Hardlia Notion"]
     s.email       = 'useemly.mess@gmail.com'
-    s.files       = ["lib/router.rb"]
+    s.files       = ["lib/loader.rb", "lib/router.rb", "lib/geography.rb"]
     s.homepage    = 'http://www.notreallythere.org'
     s.license     = 'MIT'
 end

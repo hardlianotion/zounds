@@ -1,6 +1,5 @@
 require 'minitest/autorun'
 require 'router'
-require 'geodna'
 require 'json'
 
 
@@ -77,11 +76,11 @@ class TestRouter < Minitest::Test
   end
 
   def test_no_two_drivers_carry_the_same_load
-    
+    assert(false)   
   end
  
   def test_no_load_is_carried_by_multiple_drivers
-  
+    assert(false)
   end
 
   def test_unused_drivers_do_not_deliver_orders
@@ -111,9 +110,9 @@ class TestRouter < Minitest::Test
     orders = unused.orders
     deliveries = @result.deliveries
     
-    overlookedOrders = orders.select { 
-      |order| deliveries.select { 
-        |delivery| distance(delivery.driver.position, order.position) <= 5.0 
+    overlookedOrders = orders.select {|order| 
+      deliveries.select {|delivery| 
+        distance(delivery.driver.position, order.position) <= 5.0 
       } 
     }
 
