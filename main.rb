@@ -17,7 +17,7 @@ get '/routes' do
   puts "***** assigning routes to drivers."
 
   if drivers.nil? || orders.nil? then
-    status 404
+    halt 404
   else
     result = assignRoutes(drivers, orders)
     status  result.status
