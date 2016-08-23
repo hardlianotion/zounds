@@ -3,8 +3,16 @@ source 'https://rubygems.org'
 gem 'sinatra'
 gem 'sinatra-contrib'
 gem 'httparty'
-gem 'minitest'
-gem 'simplecov'
+gem 'docile'
+gem 'rake'
 gem 'kdtree'
-gem 'rack-minitest', git: 'git://github.com/brandonweiss/rack-minitest.git'
-gem 'rack-test'
+
+group :development, :test do
+  gem 'simplecov-html'
+  gem 'simplecov', :require => false, :group => :test
+  gem 'minitest'
+  gem 'rack'
+  gem 'rack-test'
+  gem 'rack-minitest', git: 'git://github.com/brandonweiss/rack-minitest.git'
+end
+

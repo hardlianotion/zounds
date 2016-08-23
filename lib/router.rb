@@ -1,7 +1,5 @@
 require 'json'
 
-module Router
-
   MAX_PERMITTED_DISTANCE = 5.0
   DRIVER_DEPTH = 5 #max possible 255 - max number of nearest neighbour drivers we look for in a tree
   ORDER_DEPTH = 5 #max possible 255 - max number of nearest neighbour orders we look for in a tree
@@ -76,7 +74,7 @@ module Router
   end
   
   def assignRoutes(drivers, orders)
-    riverTree.nearestk(order.lat, order.lon, DRIVER_DEPTH)
+    driverTree.nearestk(order.lat, order.lon, DRIVER_DEPTH)
     orderIds = orders.map{|order| order.id}.to_s
     driverIds = drivers.map{|driver| driver.id}.to_s
     
@@ -153,4 +151,3 @@ private
     return result
   end
 
-end
