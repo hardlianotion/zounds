@@ -56,8 +56,8 @@ require 'geography.rb'
     
     def to_json(*a)
       {
-        'driver' => :unused.driver,
-        'order' => :unused.order
+        'driver' => :driver,
+        'order' => :order
       }.to_json(*a)
     end
   end 
@@ -69,8 +69,15 @@ require 'geography.rb'
       @drivers = drivers
       @orders = orders
     end
+    
+    def to_json(*a)
+      {
+        'drivers' => :drivers,
+        'orders' => :orders
+      }.to_json(*a)
+    end
   end
-  
+
   class Result
     attr_reader :deliveries, :unused
   
@@ -82,11 +89,8 @@ require 'geography.rb'
     def to_json(*a)
       {
         'deliveries' => :deliveries,
-        'unused' => {
-            'drivers' => :unused.drivers,
-            'orders' => :unused.orders
-          }.to_json(*a)
-      }
+        'unused' => :unused 
+      }.to_json(*a)
     end
   end
   
@@ -125,7 +129,7 @@ private
     from = order.from
     result = []
     nearToFarIds = driverTree.nearestk(from[0], from[1], DRIVER_DEPTH)
-    driverIds
+    
     for id in nearToFarIds do
       if !driverIds.include?(id)
         next
@@ -178,4 +182,3 @@ private
     end
     return result.empty? ? nil : result
   end
-

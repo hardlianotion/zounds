@@ -11,7 +11,7 @@ class TestRouter < Minitest::Test
     d2 = Driver.new(2, [40.11, 40.1])
     d3 = Driver.new(3,[40.122, 40.1])
     d4 = Driver.new(4, [40.13, 40.1])
-    @drivers = {1 => d1, 2=> d2, 3 => d3, 4 => d4}
+    @drivers = {1 => d1, 2 => d2, 3 => d3, 4 => d4}
     
     o1 = Order.new(1, [39.99, 40.1], [40.11, 40.1], Size::SMALL)
     o2 = Order.new(2, [40.12, 40.1], [40.13, 40.1], Size::SMALL)
@@ -69,7 +69,6 @@ class TestRouter < Minitest::Test
   end
 
   def test_all_drivers_either_delivering_or_unused
-    print "5\n"
     used = @result.deliveries.map {|delivery| delivery.order }.uniq
     unused = @result.unused.orders.uniq
     orders = used + unused
@@ -99,7 +98,6 @@ class TestRouter < Minitest::Test
   end
 
   def test_unused_orders_cannot_be_delivered
-    print "9\n"
     unused = @result.unused
     deliveries = @result.deliveries
     orders = unused.orders

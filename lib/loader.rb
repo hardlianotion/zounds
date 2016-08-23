@@ -1,22 +1,27 @@
 require 'json'
 
 module Loader
+      extend self
 
-  def drivers(json)
+    
+  def orders(json)
     json.map{|data| 
       size = data['size']
       if size == 'SMALL'
-        [data['id'], Order.new(data['id'], data['from'], data['to'], Size::SMALL)]
+        Order.new(data['id'], data['from'], data['to'], Size::SMALL)
       elsif size == 'BIG'
-        [data['id'], Order.new(data['id'], data['from'], data['to'], Size::BIG)]
+        Order.new(data['id'], data['from'], data['to'], Size::BIG)
       else
-        raise ArumentError, 'Argument has to be \"BIG\"or \"SMALL\"'
+        raise ArgumentError, "Size is #{size}.  Argument has to be \"BIG\"or \"SMALL\""
       end
-    }.to_h
+    }
   end
 
-  def orders(json)
-    json.map{|data| [data['id'], Order.new(data['id'], data['location']) ]}.to_h
+  def drivers(json)
+    json.map{|data| 
+      print data
+      Driver.new(data['id'], data['location']) 
+    }
   end
   
 end
