@@ -13,8 +13,6 @@ end
 get '/routes' do
   drivers = Loader.drivers(params[:drivers])
   orders = Loader.orders(params[:orders])
-  
-  puts "***** assigning routes to drivers."
 
   if drivers.nil? || orders.nil? then
     halt 404
@@ -22,8 +20,12 @@ get '/routes' do
     #FIXME bad path handling here 
     result = assignRoutes(drivers, orders)
     status  result.status
-
-    jsonp(result.to_json)
+    
+    resultJson = result.to_jason
+    if !resultJason
+      halt 500
+    end
+    jsonp(resultJson)
   end
 end
 

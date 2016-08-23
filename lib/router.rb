@@ -53,6 +53,13 @@ require 'geography.rb'
       @driver = driver
       @order = order
     end
+    
+    def to_json(*a)
+      {
+        'driver' => :unused.driver,
+        'order' => :unused.order
+      }.to_json(*a)
+    end
   end 
   
   class UnusedOpportunities
