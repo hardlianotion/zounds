@@ -61,8 +61,7 @@ a json format
   D01235 might well be within range to pick up O62534.
   
   Possible improvements: 
-   
-      * competent route engine
-      * engine request id to match request with response
+  1. competent route engine
+  2. engine request id to match request with response
   
   
