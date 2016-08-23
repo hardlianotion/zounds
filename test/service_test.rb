@@ -1,4 +1,5 @@
 ENV['RACK_ENV'] = 'test'
+$LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 
 #Must start first for instrumentation
 require 'simplecov'

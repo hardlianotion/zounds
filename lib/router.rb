@@ -1,4 +1,6 @@
+require 'kdtree'
 require 'json'
+require 'geography.rb'
 
   MAX_PERMITTED_DISTANCE = 5.0
   DRIVER_DEPTH = 5 #max possible 255 - max number of nearest neighbour drivers we look for in a tree
@@ -45,6 +47,14 @@ require 'json'
     end
   end
   
+  class Delivery
+    attr_reader :driver, :order
+    def initialize(driver, order)
+      @driver = driver
+      @order = order
+    end
+  end 
+  
   class UnusedOpportunities
     attr_reader :drivers, :orders
   
@@ -74,27 +84,30 @@ require 'json'
   end
   
   def assignRoutes(drivers, orders)
-    driverTree.nearestk(order.lat, order.lon, DRIVER_DEPTH)
-    orderIds = orders.map{|order| order.id}.to_s
-    driverIds = drivers.map{|driver| driver.id}.to_s
+    orderIds = orders.keys.to_set
+    driverIds = drivers.keys.to_set
     
-    orderPts = orders.map{|order| [order.from[0], order.from[1], order.id]}
-    driverPts = drivers.map{|driver| [driver.position[0], order.position[1], driver.id]}
+    orderPts = orders.values.map{|order| [order.from[0], order.from[1], order.id]}
+    driverPts = drivers.values.map{|driver| [driver.location[0], driver.location[1], driver.id]}
     
     orderTree = Kdtree.new(orderPts)
     driverTree = Kdtree.new(driverPts)
     
-    deliveries = order.to_a.inject([]) {|result, order|  
+    deliveries = orders.values.inject([]) {|result, order|  
       #use the trees to look for nearest neighbouring drivers for each order.
       #For small packages, we use the trees to look up nearest neighbouring orders to 
       #fill each driver's car
-      result.push(processOrder(order.id, orders, orderTree, drivers, driverTree, orderIds, driverIds))
+      processed = processOrder(order.id, orders, orderTree, drivers, driverTree, orderIds, driverIds)
+      if processed && !processed.empty?
+       result.push(processed)
+      else 
+        result
+      end
     }
     
     unfilledOrders = orderIds.map {|id| orders[id]}
     unemployedDrivers = driverIds.map {|id| drivers[id]}
-
-    Result.new(deliveries, UnusedOpportunities.new(unemployedDrivers, unfilledOrders))
+    Result.new(deliveries.flatten, UnusedOpportunities.new(unemployedDrivers, unfilledOrders))
   end
 
 private
@@ -103,37 +116,45 @@ private
   def processOrder(orderId, orders, orderTree, drivers, driverTree, orderIds, driverIds)
     order = orders[orderId]
     from = order.from
+    result = []
     nearToFarIds = driverTree.nearestk(from[0], from[1], DRIVER_DEPTH)
-    
+    driverIds
     for id in nearToFarIds do
+      if !driverIds.include?(id)
+        next
+      end
+
       driver = drivers[id]
-      if Geography.distance(drivers,order) > MAX_PERMITTED_DISTANCE
+      if Geography.distance(driver.location, order.from) > MAX_PERMITTED_DISTANCE
         break
       else
         orderIds.delete(orderId) 
-        result =[[driver, order]]
+        result.push(Delivery.new(driver, order))
 
-        if order.size == 3
+        if order.size ==Size::BIG 
           driverIds.delete(id)
         else
-          result.push(processDriver(driverId, orders, orderTree, drivers, driverTree, orderIds, driverIds))
+          processed = processDriver(id, orders, orderTree, drivers, driverTree, orderIds, driverIds)
+          if processed && !processed.empty?
+            result.push(processed)
+          end
         end
         break
       end
     end
-    return result
+    return result.empty? ? nil: result
   end
   
   #FIXME - messy
   def processDriver(driverId, orders, orderTree, drivers, driverTree, orderIds, driverIds)
     driver = drivers[driverId]
-    position = driver.position
-    nearToFarIds = orderTree.nearestk(position[0], position[1], ORDER_DEPTH)
+    location = driver.location
+    nearToFarIds = orderTree.nearestk(location[0], location[1], ORDER_DEPTH)
     result = []    
     driverLoad = 1
     for id in nearToFarIds do
       order = orders[id]
-      if Geography.distance(drivers,order) > MAX_PERMITTED_DISTANCE
+      if Geography.distance(driver.location,order.from) > MAX_PERMITTED_DISTANCE
         break
       else 
         if driverLoad == 3
@@ -144,10 +165,10 @@ private
         if order.size == 1
           driverLoad += 1
           orderIds.delete(id) 
-          result.push([driver, order])
+          result.push(Delivery.new(driver, order))
         end
       end
     end
-    return result
+    return result.empty? ? nil : result
   end
 

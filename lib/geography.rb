@@ -2,32 +2,11 @@ require 'kdtree'
 
 
 module Geography
-
+      extend self
+  
   MILES_PER_KM = 0.621371192237
   RADIUS_OF_EARTH = 6378100.0
   SQRT2 = Math.sqrt(2.0)
-
-  class Point
-    attr_reader :lat, :lon
-
-    def initialize(latlon )
-      @lat = latlon[0]
-      @lon = latlon[1]
-    end
-
-    def coordinates
-      return [ :lat, :lon ]
-    end
-
-    def add_vector( dy, dx )
-      coords = Geography.add_vector(self.coordinates , dy, dx )
-      Geography::Point.new( *coords )
-    end
-
-    def distance_in_km( point )
-      Geography.distance_in_km( self.coordinates, point)
-    end
-  end
 
   def add_vector( point, dy, dx )
     lat = point[0]
