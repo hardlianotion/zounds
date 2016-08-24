@@ -45,7 +45,7 @@ Client makes a request for routes.  Test it out on
                             {"id": "D01235", "location": [49.0, 47.3]} \
                             ], \
                     "orders": [ \
-                            {"id": "O62534", "from": [44.0, 47.6], "to": [44.1, 47.3], "size": "SMALL"},
+                            {"id": "O62534", "from": [44.0, 47.6], "to": [44.1, 47.3], "size": "SMALL"}, \
                             {"id": "O62535", "from": [53.1, 47.5], "to": [53.1, 47.3], "size": "BIG"} \
                           ] \
                 }' http://localhost:9292/routes
