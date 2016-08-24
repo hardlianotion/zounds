@@ -26,8 +26,8 @@ class TestService < MiniTest::Test
           {'id': '1', 'location': ['48', '48']}
         ], 
       'orders':[
-          {'id': '1', 'from':['45', '46'] , 'to': ['45', '44.7'], 'size': 'SMALL'},
-          {'id': '1', 'from':['48', '46'] , 'to': ['48', '44.7'], 'size': 'SMALL'}
+          {'id': '1', 'from':['45', '45'] , 'to': ['45', '44.7'], 'size': 'SMALL'},
+          {'id': '1', 'from':['48', '48'] , 'to': ['48', '44.7'], 'size': 'SMALL'}
         ]
     }
   end
@@ -52,7 +52,7 @@ class TestService < MiniTest::Test
           {'id': '1', 'location': ['48', '48']}
         ], 
       'orders':[
-          {'id': '1', 'from':['45', '46'] , 'to': ['45', '44.7'], 'size': 'SMALL'},
+          {'id': '1', 'from':['45', '45'] , 'to': ['45', '44.7'], 'size': 'SMALL'},
           {'id': '1', 'from':['60', '46'] , 'to': ['65', '44.7'], 'size': 'SMALL'}
         ]
     }

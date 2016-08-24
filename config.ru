@@ -1,2 +1,2 @@
-require 'router'
+require './main'
 run Sinatra::Application

@@ -16,8 +16,8 @@ require 'geography.rb'
   
     def to_json(*a)
       {
-        'id' => :id,
-        'location' => :location,
+        "id" => self.id,
+        "location" => self.location,
       }.to_json(*a)
     end
   end
@@ -39,10 +39,10 @@ require 'geography.rb'
   
     def to_json(*a)
       {
-        'id' => :id,
-        'from' => :from,
-        'to' => :to,
-        'size' => :size == Size::SMALL ? 'SMALL':'BIG' 
+        'id' => self.id,
+        'from' => self.from,
+        'to' => self.to,
+        'size' => self.size == Size::SMALL ? 'SMALL':'BIG' 
       }.to_json(*a)
     end
   end
@@ -56,8 +56,8 @@ require 'geography.rb'
     
     def to_json(*a)
       {
-        'driver' => :driver,
-        'order' => :order
+        'driver' => self.driver,
+        'order' => self.order
       }.to_json(*a)
     end
   end 
@@ -72,8 +72,8 @@ require 'geography.rb'
     
     def to_json(*a)
       {
-        'drivers' => :drivers,
-        'orders' => :orders
+        'drivers' => self.drivers,
+        'orders' => self.orders
       }.to_json(*a)
     end
   end
@@ -88,8 +88,8 @@ require 'geography.rb'
   
     def to_json(*a)
       {
-        'deliveries' => :deliveries,
-        'unused' => :unused 
+        'deliveries' => self.deliveries,
+        'unused' => self.unused 
       }.to_json(*a)
     end
   end
@@ -137,7 +137,7 @@ private
 
       driver = drivers[id]
       if Geography.distance(driver.location, order.from) > MAX_PERMITTED_DISTANCE
-        break
+        next 
       else
         orderIds.delete(orderId) 
         result.push(Delivery.new(driver, order))
@@ -166,7 +166,7 @@ private
     for id in nearToFarIds do
       order = orders[id]
       if Geography.distance(driver.location,order.from) > MAX_PERMITTED_DISTANCE
-        break
+        next
       else 
         if driverLoad == 3
           driverIds.delete(driverId)

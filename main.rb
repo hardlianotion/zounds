@@ -31,8 +31,8 @@ put '/routes' do
   else
     #FIXME some error handling would be nice
     #FIXME - clumsy
-    orderIds = orders.map{|driver| driver.id}
-    driverIds = drivers.map{|order| order.id}
+    driverIds = orders.map{|driver| driver.id}
+    orderIds = drivers.map{|order| order.id}
     
     idOrders = Hash[orderIds.zip(orders)]
     idDrivers = Hash[driverIds.zip(drivers)]

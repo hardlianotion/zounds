@@ -2,7 +2,6 @@ require 'json'
 
 module Loader
       extend self
-
     
   def orders(json)
     json.map{|data| 
@@ -19,7 +18,6 @@ module Loader
 
   def drivers(json)
     json.map{|data| 
-      print data
       Driver.new(data['id'], data['location']) 
     }
   end
