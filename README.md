@@ -21,7 +21,7 @@ HOW TO RUN ...
 
 Running the tests
 
-Tests are currently run via
+Tests are currently run from the project root via
 
     $ bundle
     $ bundle exec ruby tests/<test-name-here>_tests.rb 
