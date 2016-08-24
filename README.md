@@ -38,7 +38,7 @@ Open up another client and type in an instruction aimed at the api.
 
 API
 
-Client makes a request for routes.  Test it out on the command line
+Client makes a request for routes.  Test it out on the command line:
 
     $ curl -X PUT -d     "{ \
       \"drivers\": [ \
