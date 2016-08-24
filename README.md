@@ -1,6 +1,6 @@
 # Zounds
 
-Zounds is a simple Sinatra app that pretends to match drivers to packages-for-delivery.
+Zounds is a simple Sinatra web app that pretends to match drivers to packages-for-delivery.
 
 Install
 
@@ -75,7 +75,7 @@ location.
   
 The engine matches demand greedily rather than making a true optimal match.  This might mean in this 
 example that D01234 might actually be able to deliver either order, but happens to have picked O62534, while 
-D01235 might well be within range to pick up O62534.
+D01235 might well be within range to pick up O62534, but cannot pick up on O62535, so the opportunity is missed.
   
   Possible improvements: 
   1. competent route engine
