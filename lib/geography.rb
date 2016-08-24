@@ -1,5 +1,8 @@
 require 'kdtree'
 
+#Most of the code in this directory comes from GeoDNA.
+#I intended to use the quadtree there, but decided not to use the api
+#and took the distance code instead.
 
 module Geography
       extend self
