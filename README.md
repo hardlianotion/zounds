@@ -10,7 +10,7 @@ FIXME - to be completed...
 
     $ git clone https://github.com/hardlianotion/zounds.git
     $ bundle
-    $ gem build zounds.spec
+    $ gem build zounds.gemspec
     $ gem install zounds-0.1.0
 
 taking care to ensure all parts of your ruby system have some idea that bundler and gem 
