@@ -9,6 +9,7 @@ Install
 This was built with ruby 2.3.1 and uses bundler to manage the builds.
 
 FIXME - to be completed...
+
     $ git clone https://github.com/hardlianotion/zounds.git
     $ bundle
     $ gem build zounds.spec
