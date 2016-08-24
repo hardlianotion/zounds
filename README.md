@@ -66,7 +66,7 @@ a json format
               }
       }
 
-If you receive a 500, something unfortunate has happenen in the engine (not all the states are fully enumerated and
+If you receive a 500, something unfortunate has happened in the engine (not all the states are fully enumerated and
 accounted for) and you will have nothing to parse.
       
 In this example (in principle, at least!), driver D01234 has been matched with order O62534, but D01235 and order 
