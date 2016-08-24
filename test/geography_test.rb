@@ -19,14 +19,9 @@ class TestGeography < Minitest::Test
 
   def test_mile_to_km_conversion
     for pt in @points do
-#      miles = Geography.distance(pt, @points[0])
+      miles = Geography.distance(pt, @points[0])
       km = Geography.distance_in_km(pt, @points[0])
-      assert_in_delta(miles, km * Geography.MILES_PER_KM)
+      assert_in_delta(miles, km * Geography::MILES_PER_KM)
     end
   end
-
-  def test_code_excludes_exterior_point
-    assert(false)
-  end
 end
-
