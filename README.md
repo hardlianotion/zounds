@@ -49,8 +49,7 @@ Client makes a request for routes.  Test it out on
                             {"id": "O62534", "from": [44.0, 47.6], "to": [44.1, 47.3], "size": "SMALL"},
                             {"id": "O62535", "from": [53.1, 47.5], "to": [53.1, 47.3], "size": "BIG"} \
                           ] \
-                } \
-                ' http://localhost:9292/routes
+                }' http://localhost:9292/routes
 
 If you get a 400 back, it means that you missed out on sending the right JSON. 
 If you get a 200 back, it means you can pick out a json response with route information.  This also has
