@@ -16,8 +16,7 @@ FIXME - to be completed...
 taking care to ensure all parts of your ruby system have some idea that bundler and gem 
 can work together.  Known installation problems include
 
-    * Current version of sinatra (1.4.7) clashes with latest version of rack (2.0.1).  
-      Rack 1.6.4 is compatible.
+* Current version of sinatra (1.4.7) clashes with latest version of rack (2.0.1).  Rack 1.6.4 is compatible.
 
 HOW TO RUN ...
 
