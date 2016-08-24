@@ -14,7 +14,9 @@ FIXME - to be completed...
     $ gem install zounds-0.1.0
 
 taking care to ensure all parts of your ruby system have some idea that bundler and gem 
-can work together.
+can work together.  Known installation problems include
+
+    * Current version of sinatra (1.4.7) clashes with latest version of rack (2.0.1).  Rack 1.6.4 is compatible.
 
 HOW TO RUN ...
 
