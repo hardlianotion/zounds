@@ -2,8 +2,6 @@
 
 Zounds is a simple Sinatra app that pretends to match drivers to packages-for-delivery.
 
-Features
-
 Install
 
 This was built with ruby 2.3.1 with ruby-dev, using bundler to manage the builds.  
