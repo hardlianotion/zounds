@@ -6,7 +6,7 @@ Features
 
 Install
 
-This was built with ruby 2.3.1 and uses bundler to manage the builds.
+This was built with ruby 2.3.1 with ruby-dev, using bundler to manage the builds.  
 
 FIXME - to be completed...
 
@@ -25,7 +25,7 @@ Running the tests
 Tests are currently run from the project root via
 
     $ bundle
-    $ bundle exec ruby tests/<test-name-here>_tests.rb 
+    $ bundle exec ruby test/<test-name-here>_tests.rb 
     test-name-here being one of router, server or geography.
 
 server_tests currently are not currently connecting to server code, so best to check out running the
