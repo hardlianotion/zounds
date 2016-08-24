@@ -38,17 +38,18 @@ Open up another client and type in an instruction aimed at the api.
 
 API
 
-Client makes a request for routes.  Test it out on
+Client makes a request for routes.  Test it out on the command line
 
-    $ curl -X PUT -d '{"drivers": [ \
-                            {"id": "D01234", "location": [44.0, 47.6]}, \
-                            {"id": "D01235", "location": [49.0, 47.3]} \
-                            ], \
-                    "orders": [ \
-                            {"id": "O62534", "from": [44.0, 47.6], "to": [44.1, 47.3], "size": "SMALL"}, \
-                            {"id": "O62535", "from": [53.1, 47.5], "to": [53.1, 47.3], "size": "BIG"} \
-                          ] \
-                }' http://localhost:9292/routes
+    $ curl -X PUT -d     "{ \
+      \"drivers\": [ \
+          {\"id\": 1, \"location\": [45, 45]}, \
+          {\"id\": 2, \"location\": [48, 48]} \
+        ],  \
+      \"orders\":[ \
+          {\"id\": 1, \"from\":[45, 45] , \"to\": [45, 44.7], \"size\": \"SMALL\"}, \
+          {\"id\": 2, \"from\":[48, 48] , \"to\": [48, 44.7], \"size\": \"SMALL\"} \
+        ] \
+    }" http://localhost:9292/routes
 
 If you get a 400 back, it means that you missed out on sending the right JSON. 
 If you get a 200 back, it means you can pick out a json response with route information.  This also has
