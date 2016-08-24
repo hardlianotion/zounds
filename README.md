@@ -11,6 +11,11 @@ This was built with ruby 2.3.1 and uses bundler to manage the builds.
 FIXME - to be completed...
 $ git clone https://github.com/hardlianotion/zounds.git
 $ bundle
+$ gem build zounds.spec
+$ gem install zounds-0.1.0
+
+taking care to ensure all parts of your ruby system have some idea that bundler and gem 
+can work together.
 
 HOW TO RUN ...
 
@@ -21,6 +26,15 @@ Tests are currently run via
     $ bundle
     $ bundle exec ruby tests/<test-name-here>_tests.rb 
     test-name-here being one of router, server or geography.
+
+server_tests currently are not currently connecting to server code, so best to check out running the
+app itself for 'real'.
+
+To start the service
+
+    $ rackup
+
+Open up another client and type in an instruction aimed at the api.
 
 API
 
