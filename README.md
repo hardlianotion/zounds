@@ -26,7 +26,8 @@ Tests are currently run from the project root via
 
     $ bundle
     $ bundle exec ruby test/<test-name-here>_tests.rb 
-    test-name-here being one of router, server or geography.
+    
+test-name-here being one of router, server or geography.
 
 server_tests currently are not currently connecting to server code, so best to check out running the
 app itself for 'real'.
