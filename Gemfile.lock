@@ -1,0 +1,64 @@
+GIT
+  remote: git://github.com/brandonweiss/rack-minitest.git
+  revision: ff8669c284e05c3cba8d14b867165c103283a167
+  specs:
+    rack-minitest (0.0.10)
+      json
+      minitest (~> 5.0)
+      rack-test
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    backports (3.6.8)
+    docile (1.1.5)
+    httparty (0.14.0)
+      multi_xml (>= 0.5.2)
+    json (2.0.2)
+    kdtree (0.3)
+    minitest (5.9.0)
+    multi_json (1.12.1)
+    multi_xml (0.5.5)
+    rack (1.6.4)
+    rack-protection (1.5.3)
+      rack
+    rack-test (0.6.3)
+      rack (>= 1.0)
+    rake (11.2.2)
+    simplecov (0.12.0)
+      docile (~> 1.1.0)
+      json (>= 1.8, < 3)
+      simplecov-html (~> 0.10.0)
+    simplecov-html (0.10.0)
+    sinatra (1.4.7)
+      rack (~> 1.5)
+      rack-protection (~> 1.4)
+      tilt (>= 1.3, < 3)
+    sinatra-contrib (1.4.7)
+      backports (>= 2.0)
+      multi_json
+      rack-protection
+      rack-test
+      sinatra (~> 1.4.0)
+      tilt (>= 1.3, < 3)
+    tilt (2.0.5)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  docile
+  httparty
+  kdtree
+  minitest
+  rack
+  rack-minitest!
+  rack-test
+  rake
+  simplecov
+  simplecov-html
+  sinatra
+  sinatra-contrib
+
+BUNDLED WITH
+   1.12.5
