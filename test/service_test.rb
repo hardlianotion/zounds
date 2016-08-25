@@ -84,35 +84,5 @@ class TestService < MiniTest::Test
     assert(false)
   end
 
-#  def test_add_bum_note_no_content
-#    put '/note', {"subject" => "Don't forget"}.to_json
-#    assert_equal 400, last_response.status
-#  end
-#    
-#  def test_add_bum_note_no_subject
-#    put '/note', {"content" => "To do something"}.to_json
-#    assert_equal 400, last_response.status
-#  end
-#      
-#  def test_add_and_retrieve_note
-#  # Create a new note, then retrieve it and
-#  # assert that we get the same stuff back!
-#
-#    note = {
-#             "subject" => "Don't forget",
-#             "content" => "Test add and retrieve note!"
-#            }
-#
-#     note_id = make_a_note(note)
-#
-#   # Retrieve the note we just created
-#     returned_note = retrieve_note(note_id)
-#
-#   # Check we got the same note back!
-#     note.each_key do |k|
-#       refute_nil returned_note[k]
-#       assert_equal note[k], returned_note[k]
-#     end
-#  end
 end
   
