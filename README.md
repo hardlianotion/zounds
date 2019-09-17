@@ -6,7 +6,7 @@ Install
 
 This was built with ruby 2.3.1 with ruby-dev, using bundler to manage the builds.  
 
-FIXME - to be completed...
+This is interview code for a position at Zoomer in 2016.  Updates to the code would be surprising.
 
     $ git clone https://github.com/hardlianotion/zounds.git
     $ bundle
