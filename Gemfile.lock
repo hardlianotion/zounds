@@ -12,13 +12,15 @@ GEM
   specs:
     backports (3.6.8)
     docile (1.1.5)
-    httparty (0.14.0)
+    httparty (0.21.0)
+      mini_mime (>= 1.0.0)
       multi_xml (>= 0.5.2)
     json (2.3.1)
     kdtree (0.3)
+    mini_mime (1.1.2)
     minitest (5.9.0)
     multi_json (1.12.1)
-    multi_xml (0.5.5)
+    multi_xml (0.6.0)
     rack (1.6.4)
     rack-protection (1.5.3)
       rack
